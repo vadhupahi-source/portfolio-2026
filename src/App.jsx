@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser';
 import { useEffect, useState } from "react";
 
 function App() {
@@ -12,19 +13,29 @@ function App() {
       .then((data) => setProfile(data));
   }, []);
 
-  const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.message) {
-      alert("எல்லா fields-உம் நிரப்புங்கள்!");
-      return;
-    }
-    await fetch("https://portfolio-backend-2026-production.up.railway.app/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+ const handleSubmit = async () => {
+  if (!form.name || !form.email || !form.message) {
+    alert("எல்லா fields-உம் நிரப்புங்கள்!");
+    return;
+  }
+
+  try {
+    await emailjs.send(
+      'service_flpgqvr',    // Service ID
+      'template_58tn5v9',   // Template ID
+      {
+        from_name: form.name,
+        from_email: form.email,
+        message: form.message,
+      },
+      'Lz97Kzo78hViJY56Z'     // Public Key
+    );
     setSent(true);
     setForm({ name: "", email: "", message: "" });
-  };
+  } catch (error) {
+    alert("அனுப்புவதில் பிரச்சனை! மீண்டும் முயற்சிக்கவும்.");
+  }
+};
 
   const styles = {
     app: { fontFamily: "'Segoe UI', sans-serif", background: "#0f0c29", minHeight: "100vh", color: "white" },
