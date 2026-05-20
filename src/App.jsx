@@ -4,7 +4,7 @@ function App() {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    fetch("portfolio-backend-2026-production.up.railway.app/api/profile")
+    fetch("https://portfolio-backend-2026-production.up.railway.app/api/profile")
       .then((res) => res.json())
       .then((data) => setProfile(data));
   }, []);
