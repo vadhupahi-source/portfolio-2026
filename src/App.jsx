@@ -4,7 +4,7 @@ import emailjs from '@emailjs/browser';
 const profile = {
   name: "Mohammed Nilaam",
   role: "Aspiring IT Professional",
-  location: "Valaichenai, Batticaloa, Sri Lanka 🇱🇰",
+  location: "Valaichenai, Batticaloa, Sri Lanka",
   email: "mohammednilam4433@gmail.com",
   phone: "0764433998",
   bio: "Motivated and dedicated IT graduate from University of Jaffna with knowledge in Information Technology, Web Designing, and Computer Applications.",
@@ -22,27 +22,42 @@ const profile = {
     "Diploma in Organization Behaviorism",
     "Certificate in Fundamentals – Future Career Bridge Program"
   ],
-  languages: ["Tamil - Fluent", "English - Intermediate"]
+  languages: ["Tamil – Fluent", "English – Intermediate"]
 };
 
 const projects = [
-  { icon: "🛒", title: "MSM Communication POS", desc: "MSM Communication கடைக்காக உருவாக்கிய POS & Inventory System.", tags: ["React", "localStorage", "Vite"] },
-  { icon: "👥", title: "HorizonHR System", desc: "Employee Records, Payroll, Leave, Attendance கொண்ட HR System.", tags: ["React", "Node.js", "Vite"] },
-  { icon: "🎓", title: "ICT Workshop – Univ. of Jaffna", desc: "Faculty of Hindu Studies மாணவர்களுக்கு Internet, AI Tools கற்பித்தேன்.", tags: ["Education", "ICT", "Tamil"] },
-  { icon: "🧑‍🏫", title: "English Teacher", desc: "J/Kokuvil Hindu College-ல் English கற்பித்தேன்.", tags: ["Teaching", "English", "2025"] },
+  { icon: "🛒", title: "MSM Communication POS", desc: "Full POS & Inventory System with Sales, Receipts, CSV Export.", tags: ["React", "localStorage", "Vite"] },
+  { icon: "👥", title: "HorizonHR System", desc: "Complete HR System with Payroll, Leave & Attendance modules.", tags: ["React", "Node.js", "Vite"] },
+  { icon: "🎓", title: "ICT Workshop – Univ. of Jaffna", desc: "Facilitated Internet, AI Tools & Digital Safety workshop.", tags: ["Education", "ICT", "Tamil"] },
+  { icon: "🧑‍🏫", title: "English Teacher", desc: "Taught English at J/Kokuvil Hindu College with classroom management.", tags: ["Teaching", "English", "2025"] },
 ];
 
-function App() {
+const C = {
+  bg: "#0A0F1E",
+  surface: "#111827",
+  card: "#1A2235",
+  border: "#1E3A5F",
+  accent: "#3B82F6",
+  accentLight: "#60A5FA",
+  gold: "#F59E0B",
+  text: "#F1F5F9",
+  muted: "#94A3B8",
+  success: "#10B981",
+};
+
+export default function App() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const scrollTo = (id) => document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   const handleSubmit = async () => {
     if (!form.name || !form.email || !form.message) {
       alert("எல்லா fields-உம் நிரப்புங்கள்!");
       return;
     }
+    setSending(true);
     try {
       await emailjs.send(
         'service_flpgqvr',
@@ -51,117 +66,205 @@ function App() {
         'Lz97Kzo78hViJY56Z'
       );
       setSent(true);
-      setForm({ name: "", email: "", message: "" });
     } catch {
-      alert("அனுப்புவதில் பிரச்சனை!");
+      alert("அனுப்புவதில் பிரச்சனை! மீண்டும் முயற்சிக்கவும்.");
     }
+    setSending(false);
+  };
+
+  const inputStyle = {
+    width: "100%", padding: "12px 16px",
+    background: "#0A0F1E",
+    border: `1px solid ${C.border}`,
+    borderRadius: "10px", color: C.text,
+    fontSize: "15px", marginBottom: "14px",
+    boxSizing: "border-box", outline: "none",
+    transition: "border 0.3s"
   };
 
   return (
-    <div style={{ fontFamily: "'Segoe UI', sans-serif", background: "#0f0c29", minHeight: "100vh", color: "white" }}>
+    <div style={{ fontFamily: "'Segoe UI', sans-serif", background: C.bg, minHeight: "100vh", color: C.text }}>
 
-      {/* Nav */}
-      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 32px", background: "rgba(255,255,255,0.05)", position: "sticky", top: 0, zIndex: 100, flexWrap: "wrap", gap: "10px" }}>
-        <div style={{ fontWeight: "bold", fontSize: "20px", background: "linear-gradient(to right, #a78bfa, #60a5fa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-          Mohammed Nilaam ✨
+      {/* ── NAV ── */}
+      <nav style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 40px", background: C.surface, borderBottom: `1px solid ${C.border}`, position: "sticky", top: 0, zIndex: 100, flexWrap: "wrap", gap: "12px" }}>
+        <div style={{ fontWeight: "700", fontSize: "20px", color: C.accentLight, letterSpacing: "0.5px" }}>
+          MN<span style={{ color: C.gold }}>.</span>
         </div>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {[["home","🏠"],["education","🎓"],["projects","💼"],["contact","📬"]].map(([id, icon]) => (
-            <button key={id} onClick={() => scrollTo(id)}
-              style={{ background: "rgba(167,139,250,0.15)", border: "none", color: "white", padding: "7px 14px", borderRadius: "20px", cursor: "pointer", fontSize: "14px" }}>
-              {icon} {id.charAt(0).toUpperCase() + id.slice(1)}
+          {[["home","Home"],["education","Education"],["projects","Projects"],["contact","Contact"]].map(([id, label]) => (
+            <button key={id} onClick={() => scrollTo(id)} style={{
+              background: "transparent", border: `1px solid ${C.border}`,
+              color: C.muted, padding: "7px 18px", borderRadius: "6px",
+              cursor: "pointer", fontSize: "14px", transition: "all 0.2s",
+              fontWeight: "500", letterSpacing: "0.3px"
+            }}
+              onMouseEnter={e => { e.target.style.color = C.accentLight; e.target.style.borderColor = C.accent; }}
+              onMouseLeave={e => { e.target.style.color = C.muted; e.target.style.borderColor = C.border; }}>
+              {label}
             </button>
           ))}
         </div>
       </nav>
 
-      {/* Hero */}
-      <div id="home" style={{ textAlign: "center", padding: "60px 20px 40px", background: "linear-gradient(135deg, #0f0c29, #302b63)" }}>
-        <div style={{ width: "150px", height: "150px", borderRadius: "50%", border: "4px solid #a78bfa", margin: "0 auto 20px", overflow: "hidden" }}>
-          <img src="/nilaam.jpg" alt="Nilaam" style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            onError={(e) => { e.target.style.display='none'; e.target.parentNode.innerHTML='👨‍💻'; e.target.parentNode.style.fontSize='60px'; e.target.parentNode.style.display='flex'; e.target.parentNode.style.alignItems='center'; e.target.parentNode.style.justifyContent='center'; }} />
+      {/* ── HERO ── */}
+      <div id="home" style={{ maxWidth: "1000px", margin: "0 auto", padding: "80px 24px 60px", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
+        
+        {/* Left */}
+        <div style={{ flex: "1", minWidth: "260px" }}>
+          <p style={{ color: C.gold, fontSize: "14px", fontWeight: "600", letterSpacing: "2px", marginBottom: "12px" }}>PORTFOLIO</p>
+          <h1 style={{ fontSize: "42px", fontWeight: "700", margin: "0 0 8px", lineHeight: "1.2" }}>
+            Mohammed<br /><span style={{ color: C.accentLight }}>Nilaam</span>
+          </h1>
+          <p style={{ color: C.gold, fontSize: "18px", fontWeight: "500", margin: "0 0 16px" }}>{profile.role}</p>
+          <p style={{ color: C.muted, lineHeight: "1.8", marginBottom: "24px", fontSize: "15px" }}>{profile.bio}</p>
+
+          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "24px" }}>
+            <span style={{ display: "flex", alignItems: "center", gap: "6px", color: C.muted, fontSize: "14px" }}>
+              📧 {profile.email}
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: "6px", color: C.muted, fontSize: "14px" }}>
+              📱 {profile.phone}
+            </span>
+            <span style={{ display: "flex", alignItems: "center", gap: "6px", color: C.muted, fontSize: "14px" }}>
+              📍 {profile.location}
+            </span>
+          </div>
+
+          <div style={{ display: "flex", gap: "12px" }}>
+            <button onClick={() => scrollTo("contact")} style={{ padding: "12px 28px", background: C.accent, border: "none", borderRadius: "8px", color: "white", fontSize: "15px", fontWeight: "600", cursor: "pointer" }}>
+              Contact Me
+            </button>
+            <button onClick={() => scrollTo("projects")} style={{ padding: "12px 28px", background: "transparent", border: `1px solid ${C.accent}`, borderRadius: "8px", color: C.accentLight, fontSize: "15px", fontWeight: "600", cursor: "pointer" }}>
+              View Work
+            </button>
+          </div>
         </div>
-        <h1 style={{ fontSize: "36px", margin: "10px 0", fontWeight: "bold" }}>{profile.name}</h1>
-        <p style={{ color: "#a78bfa", fontSize: "18px" }}>💼 {profile.role}</p>
-        <p style={{ color: "#94a3b8", fontSize: "15px" }}>📍 {profile.location}</p>
-        <p style={{ color: "#94a3b8", maxWidth: "600px", margin: "16px auto", lineHeight: "1.8" }}>{profile.bio}</p>
-        <div style={{ display: "flex", justifyContent: "center", gap: "16px", flexWrap: "wrap", margin: "12px 0" }}>
-          <span style={{ padding: "6px 14px", background: "rgba(255,255,255,0.08)", borderRadius: "20px", fontSize: "14px" }}>📧 {profile.email}</span>
-          <span style={{ padding: "6px 14px", background: "rgba(255,255,255,0.08)", borderRadius: "20px", fontSize: "14px" }}>📱 {profile.phone}</span>
-        </div>
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "8px", margin: "20px auto", maxWidth: "700px" }}>
-          {profile.technicalSkills.map((s, i) => (
-            <span key={i} style={{ padding: "7px 16px", background: "linear-gradient(to right, #a78bfa, #60a5fa)", borderRadius: "20px", fontSize: "13px", fontWeight: "bold" }}>{s}</span>
-          ))}
+
+        {/* Right - Photo */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
+          <div style={{ width: "200px", height: "200px", borderRadius: "20px", border: `2px solid ${C.accent}`, overflow: "hidden", background: C.card }}>
+            <img src="/Nilaam.jpg" alt="Mohammed Nilaam"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              onError={(e) => { e.target.parentNode.innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:80px">👨‍💻</div>'; }} />
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", justifyContent: "center", maxWidth: "220px" }}>
+            {profile.languages.map((l, i) => (
+              <span key={i} style={{ padding: "5px 12px", background: C.card, border: `1px solid ${C.border}`, borderRadius: "20px", fontSize: "13px", color: C.gold }}>
+                {l}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Education */}
-      <div id="education" style={{ padding: "50px 20px", maxWidth: "1000px", margin: "0 auto" }}>
-        <h2 style={{ fontSize: "28px", textAlign: "center", marginBottom: "30px", background: "linear-gradient(to right, #a78bfa, #60a5fa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>🎓 Education</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
+      {/* ── SKILLS ── */}
+      <div style={{ background: C.surface, borderTop: `1px solid ${C.border}`, borderBottom: `1px solid ${C.border}`, padding: "40px 24px" }}>
+        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+          <p style={{ color: C.gold, fontSize: "12px", fontWeight: "600", letterSpacing: "2px", textAlign: "center", marginBottom: "20px" }}>TECHNICAL SKILLS</p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
+            {profile.technicalSkills.map((s, i) => (
+              <span key={i} style={{ padding: "8px 20px", background: C.card, border: `1px solid ${C.border}`, borderRadius: "8px", fontSize: "14px", color: C.accentLight, fontWeight: "500" }}>
+                {s}
+              </span>
+            ))}
+          </div>
+          <p style={{ color: C.gold, fontSize: "12px", fontWeight: "600", letterSpacing: "2px", textAlign: "center", margin: "24px 0 16px" }}>SOFT SKILLS</p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", justifyContent: "center" }}>
+            {profile.softSkills.map((s, i) => (
+              <span key={i} style={{ padding: "8px 20px", background: C.card, border: `1px solid ${C.border}`, borderRadius: "8px", fontSize: "14px", color: C.muted }}>
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── EDUCATION ── */}
+      <div id="education" style={{ maxWidth: "1000px", margin: "0 auto", padding: "70px 24px" }}>
+        <p style={{ color: C.gold, fontSize: "12px", fontWeight: "600", letterSpacing: "2px", marginBottom: "8px" }}>BACKGROUND</p>
+        <h2 style={{ fontSize: "32px", fontWeight: "700", marginBottom: "40px" }}>Education</h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px", marginBottom: "50px" }}>
           {profile.education.map((e, i) => (
-            <div key={i} style={{ background: "rgba(255,255,255,0.05)", borderRadius: "16px", padding: "20px", border: "1px solid rgba(167,139,250,0.3)" }}>
-              <div style={{ fontWeight: "bold", marginBottom: "6px" }}>🏫 {e.degree}</div>
-              <div style={{ color: "#94a3b8", fontSize: "14px" }}>{e.place} {e.year && `| ${e.year}`}</div>
-              {e.stream && <span style={{ display: "inline-block", marginTop: "8px", padding: "4px 10px", background: "rgba(167,139,250,0.2)", borderRadius: "10px", fontSize: "12px", color: "#a78bfa" }}>{e.stream}</span>}
+            <div key={i} style={{ background: C.card, borderRadius: "12px", padding: "24px", border: `1px solid ${C.border}`, borderLeft: `4px solid ${C.accent}` }}>
+              <p style={{ color: C.gold, fontSize: "12px", fontWeight: "600", marginBottom: "8px" }}>{e.year}</p>
+              <p style={{ fontWeight: "700", fontSize: "16px", marginBottom: "4px" }}>{e.degree}</p>
+              {e.place && <p style={{ color: C.muted, fontSize: "14px", marginBottom: "8px" }}>{e.place}</p>}
+              {e.stream && <span style={{ padding: "4px 10px", background: C.surface, borderRadius: "6px", fontSize: "12px", color: C.accentLight }}>{e.stream}</span>}
             </div>
           ))}
         </div>
 
-        <h2 style={{ fontSize: "24px", textAlign: "center", margin: "40px 0 20px", background: "linear-gradient(to right, #a78bfa, #60a5fa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>🏆 Certifications</h2>
-        <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "16px", padding: "20px", border: "1px solid rgba(167,139,250,0.3)" }}>
+        <p style={{ color: C.gold, fontSize: "12px", fontWeight: "600", letterSpacing: "2px", marginBottom: "8px" }}>ACHIEVEMENTS</p>
+        <h2 style={{ fontSize: "28px", fontWeight: "700", marginBottom: "24px" }}>Certifications</h2>
+        <div style={{ background: C.card, borderRadius: "12px", border: `1px solid ${C.border}`, overflow: "hidden" }}>
           {profile.certifications.map((c, i) => (
-            <div key={i} style={{ padding: "10px 0", borderBottom: i < profile.certifications.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none", color: "#94a3b8", fontSize: "14px" }}>
-              ✅ {c}
+            <div key={i} style={{ padding: "16px 24px", borderBottom: i < profile.certifications.length - 1 ? `1px solid ${C.border}` : "none", display: "flex", alignItems: "center", gap: "12px" }}>
+              <span style={{ color: C.success, fontSize: "18px" }}>✓</span>
+              <span style={{ color: C.muted, fontSize: "14px" }}>{c}</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Projects */}
-      <div id="projects" style={{ padding: "50px 20px", maxWidth: "1000px", margin: "0 auto" }}>
-        <h2 style={{ fontSize: "28px", textAlign: "center", marginBottom: "30px", background: "linear-gradient(to right, #a78bfa, #60a5fa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>💼 Projects & Experience</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" }}>
-          {projects.map((p, i) => (
-            <div key={i} style={{ background: "rgba(255,255,255,0.05)", borderRadius: "16px", padding: "20px", border: "1px solid rgba(167,139,250,0.3)" }}>
-              <div style={{ fontSize: "36px", marginBottom: "10px" }}>{p.icon}</div>
-              <div style={{ fontWeight: "bold", marginBottom: "8px" }}>{p.title}</div>
-              <div style={{ color: "#94a3b8", fontSize: "14px", lineHeight: "1.6" }}>{p.desc}</div>
-              <div style={{ marginTop: "12px" }}>
-                {p.tags.map((t, j) => <span key={j} style={{ display: "inline-block", margin: "3px", padding: "4px 10px", background: "rgba(167,139,250,0.2)", borderRadius: "10px", fontSize: "12px", color: "#a78bfa" }}>{t}</span>)}
+      {/* ── PROJECTS ── */}
+      <div id="projects" style={{ background: C.surface, borderTop: `1px solid ${C.border}` }}>
+        <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "70px 24px" }}>
+          <p style={{ color: C.gold, fontSize: "12px", fontWeight: "600", letterSpacing: "2px", marginBottom: "8px" }}>PORTFOLIO</p>
+          <h2 style={{ fontSize: "32px", fontWeight: "700", marginBottom: "40px" }}>Projects & Experience</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "20px" }}>
+            {projects.map((p, i) => (
+              <div key={i} style={{ background: C.card, borderRadius: "12px", padding: "28px", border: `1px solid ${C.border}`, transition: "transform 0.2s" }}
+                onMouseEnter={e => e.currentTarget.style.transform = "translateY(-4px)"}
+                onMouseLeave={e => e.currentTarget.style.transform = "translateY(0)"}>
+                <div style={{ fontSize: "36px", marginBottom: "16px" }}>{p.icon}</div>
+                <h3 style={{ fontSize: "17px", fontWeight: "700", marginBottom: "10px" }}>{p.title}</h3>
+                <p style={{ color: C.muted, fontSize: "14px", lineHeight: "1.7", marginBottom: "16px" }}>{p.desc}</p>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                  {p.tags.map((t, j) => (
+                    <span key={j} style={{ padding: "4px 10px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: "6px", fontSize: "12px", color: C.accentLight }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Contact */}
-      <div id="contact" style={{ padding: "50px 20px", maxWidth: "600px", margin: "0 auto" }}>
-        <h2 style={{ fontSize: "28px", textAlign: "center", marginBottom: "30px", background: "linear-gradient(to right, #a78bfa, #60a5fa)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>📬 Contact Me</h2>
-        <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "16px", padding: "30px", border: "1px solid rgba(167,139,250,0.3)" }}>
+      {/* ── CONTACT ── */}
+      <div id="contact" style={{ maxWidth: "680px", margin: "0 auto", padding: "70px 24px" }}>
+        <p style={{ color: C.gold, fontSize: "12px", fontWeight: "600", letterSpacing: "2px", marginBottom: "8px" }}>GET IN TOUCH</p>
+        <h2 style={{ fontSize: "32px", fontWeight: "700", marginBottom: "10px" }}>Contact Me</h2>
+        <p style={{ color: C.muted, marginBottom: "36px" }}>உங்கள் Message-ஐ அனுப்புங்கள் — விரைவில் பதில் சொல்கிறேன்.</p>
+        <div style={{ background: C.card, borderRadius: "16px", padding: "36px", border: `1px solid ${C.border}` }}>
           {sent ? (
-            <div style={{ textAlign: "center", color: "#4ade80", fontSize: "20px", padding: "20px" }}>✅ Message அனுப்பப்பட்டது! நன்றி 🙏</div>
+            <div style={{ textAlign: "center", padding: "30px" }}>
+              <div style={{ fontSize: "48px", marginBottom: "16px" }}>✅</div>
+              <h3 style={{ color: C.success, fontSize: "22px", marginBottom: "8px" }}>Message Sent!</h3>
+              <p style={{ color: C.muted }}>நன்றி — விரைவில் தொடர்புகொள்கிறேன்.</p>
+            </div>
           ) : (
             <>
-              <input style={{ width: "100%", padding: "12px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(167,139,250,0.3)", borderRadius: "10px", color: "white", fontSize: "15px", marginBottom: "14px", boxSizing: "border-box", outline: "none" }}
-                placeholder="உங்கள் பெயர்" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-              <input style={{ width: "100%", padding: "12px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(167,139,250,0.3)", borderRadius: "10px", color: "white", fontSize: "15px", marginBottom: "14px", boxSizing: "border-box", outline: "none" }}
-                placeholder="உங்கள் Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-              <textarea style={{ width: "100%", padding: "12px", background: "rgba(255,255,255,0.08)", border: "1px solid rgba(167,139,250,0.3)", borderRadius: "10px", color: "white", fontSize: "15px", marginBottom: "14px", boxSizing: "border-box", outline: "none", height: "120px", resize: "vertical" }}
-                placeholder="உங்கள் Message" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-              <button style={{ width: "100%", padding: "14px", background: "linear-gradient(to right, #a78bfa, #60a5fa)", border: "none", borderRadius: "10px", color: "white", fontSize: "17px", fontWeight: "bold", cursor: "pointer" }}
-                onClick={handleSubmit}>🚀 அனுப்பு</button>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px" }}>
+                <input style={inputStyle} placeholder="உங்கள் பெயர்" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} />
+                <input style={inputStyle} placeholder="உங்கள் Email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+              </div>
+              <textarea style={{ ...inputStyle, height: "130px", resize: "vertical" }} placeholder="உங்கள் Message..." value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} />
+              <button onClick={handleSubmit} disabled={sending} style={{ width: "100%", padding: "14px", background: sending ? C.border : C.accent, border: "none", borderRadius: "10px", color: "white", fontSize: "16px", fontWeight: "700", cursor: sending ? "not-allowed" : "pointer", transition: "background 0.3s" }}>
+                {sending ? "அனுப்புகிறது..." : "🚀 அனுப்பு"}
+              </button>
             </>
           )}
         </div>
       </div>
 
-      <footer style={{ textAlign: "center", padding: "30px", color: "#475569", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-        <p>© 2026 Mohammed Nilaam | Valaichenai, Batticaloa, Sri Lanka 🇱🇰</p>
+      {/* ── FOOTER ── */}
+      <footer style={{ background: C.surface, borderTop: `1px solid ${C.border}`, padding: "30px", textAlign: "center" }}>
+        <p style={{ color: C.muted, fontSize: "14px" }}>
+          © 2026 <span style={{ color: C.accentLight }}>Mohammed Nilaam</span> · Valaichenai, Batticaloa, Sri Lanka 🇱🇰
+        </p>
       </footer>
     </div>
   );
 }
-
-export default App;
