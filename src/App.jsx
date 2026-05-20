@@ -77,7 +77,7 @@ function App() {
       <div id="home" style={s.hero}>
         <div style={s.avatar}>
   <img
-    src="/nilaam.jpg"
+    src="/Nilaam.jpg"
     alt="Mohammed Nilaam"
     style={{ width: "100%", height: "100%", objectFit: "cover" }}
   />
@@ -106,7 +106,7 @@ function App() {
       <div id="education" style={s.section}>
         <h2 style={s.sectionTitle}>🎓 Education</h2>
         <div style={s.grid}>
-          {profile?.education.map((e, i) => (
+          {(profile?.education || []).map((e, i) => (
             <div key={i} style={s.card}>
               <div style={s.cardTitle}>🏫 {e.degree}</div>
               <div style={s.cardSub}>{e.place} {e.year && `| ${e.year}`}</div>
@@ -118,7 +118,7 @@ function App() {
         {/* Certifications */}
         <h2 style={{ ...s.sectionTitle, marginTop: "40px" }}>🏆 Certifications</h2>
         <div style={s.card}>
-          {profile?.certifications.map((c, i) => (
+          {(profile?.certifications || []).map((c, i) => (
             <div key={i} style={{ padding: "8px 0", borderBottom: "1px solid rgba(255,255,255,0.08)", color: "#94a3b8", fontSize: "14px" }}>
               ✅ {c}
             </div>
