@@ -106,38 +106,11 @@ export default function App() {
         </div>
       </nav>
 
-      {/* ── HERO ── */}
-      <div id="home" style={{ maxWidth: "1000px", margin: "0 auto", padding: "80px 24px 60px", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
-        
-        {/* Left */}
-        <div style={{ flex: "1", minWidth: "260px" }}>
-          <p style={{ color: C.gold, fontSize: "14px", fontWeight: "600", letterSpacing: "2px", marginBottom: "12px" }}>PORTFOLIO</p>
-          <h1 style={{ fontSize: "42px", fontWeight: "700", margin: "0 0 8px", lineHeight: "1.2" }}>
-            Mohammed<br /><span style={{ color: C.accentLight }}>Nilaam</span>
-          </h1>
-          <p style={{ color: C.gold, fontSize: "18px", fontWeight: "500", margin: "0 0 16px" }}>{profile.role}</p>
-          <p style={{ color: C.muted, lineHeight: "1.8", marginBottom: "24px", fontSize: "15px" }}>{profile.bio}</p>
-
-          <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginBottom: "24px" }}>
-            <span style={{ display: "flex", alignItems: "center", gap: "6px", color: C.muted, fontSize: "14px" }}>
-              📧 {profile.email}
-            </span>
-            <span style={{ display: "flex", alignItems: "center", gap: "6px", color: C.muted, fontSize: "14px" }}>
-              📱 {profile.phone}
-            </span>
-            <span style={{ display: "flex", alignItems: "center", gap: "6px", color: C.muted, fontSize: "14px" }}>
-              📍 {profile.location}
-            </span>
-          </div>
-
-          <div style={{ display: "flex", gap: "12px" }}>
-            <button onClick={() => scrollTo("contact")} style={{ padding: "12px 28px", background: C.accent, border: "none", borderRadius: "8px", color: "white", fontSize: "15px", fontWeight: "600", cursor: "pointer" }}>
-              Contact Me
-            </button>
-            <button onClick={() => scrollTo("projects")} style={{ padding: "12px 28px", background: "transparent", border: `1px solid ${C.accent}`, borderRadius: "8px", color: C.accentLight, fontSize: "15px", fontWeight: "600", cursor: "pointer" }}>
-              View Work
-            </button>
-          </div>
+      {/* Hero */}
+      <div id="home" style={{ textAlign: "center", padding: "60px 20px 40px", background: "linear-gradient(135deg, #0f0c29, #302b63)" }}>
+        <div style={{ width: "150px", height: "150px", borderRadius: "50%", border: "4px solid #a78bfa", margin: "0 auto 20px", overflow: "hidden" }}>
+          <img src="/nilaam.jpg" alt="Nilaam" style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            onError={(e) => { e.target.style.display='none'; e.target.parentNode.innerHTML='👨‍💻'; e.target.parentNode.style.fontSize='60px'; e.target.parentNode.style.display='flex'; e.target.parentNode.style.alignItems='center'; e.target.parentNode.style.justifyContent='center'; }} />
         </div>
 
         {/* Right - Photo */}
