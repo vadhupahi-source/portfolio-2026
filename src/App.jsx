@@ -75,7 +75,13 @@ function App() {
 
       {/* Hero */}
       <div id="home" style={s.hero}>
-        <div style={s.avatar}>👨‍💻</div>
+        <div style={s.avatar}>
+  <img
+    src="/nilaam.jpg"
+    alt="Mohammed Nilaam"
+    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+  />
+</div>
         {profile ? (
           <>
             <h1 style={s.heroName}>{profile.name}</h1>
