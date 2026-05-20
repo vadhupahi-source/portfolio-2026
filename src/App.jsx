@@ -78,7 +78,7 @@ function App() {
       {/* Hero */}
       <div id="home" style={{ textAlign: "center", padding: "60px 20px 40px", background: "linear-gradient(135deg, #0f0c29, #302b63)" }}>
         <div style={{ width: "150px", height: "150px", borderRadius: "50%", border: "4px solid #a78bfa", margin: "0 auto 20px", overflow: "hidden" }}>
-          <img src="/nilaam.jpg" alt="Nilaam" style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          <img src="/Nilaam.jpg" alt="Nilaam" style={{ width: "100%", height: "100%", objectFit: "cover" }}
             onError={(e) => { e.target.style.display='none'; e.target.parentNode.innerHTML='👨‍💻'; e.target.parentNode.style.fontSize='60px'; e.target.parentNode.style.display='flex'; e.target.parentNode.style.alignItems='center'; e.target.parentNode.style.justifyContent='center'; }} />
         </div>
         <h1 style={{ fontSize: "36px", margin: "10px 0", fontWeight: "bold" }}>{profile.name}</h1>
